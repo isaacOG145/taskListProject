@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tareas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Sistema de Lista de Tareas</h1>
+  <!-- Formulario para agregar tarea con descripción -->
+  <form action="tareas" method="POST" class="mb-4">
+    <div class="mb-3">
+      <input type="text" name="nuevaTarea" class="form-control" placeholder="Agregar nueva tarea" required>
+    </div>
+    <div class="mb-3">
+      <textarea name="descripcionTarea" class="form-control" rows="3" placeholder="Agregar una descripción (opcional)"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Tarea</button>
+  </form>
+  <!-- Tabla de tareas pendientes -->
+  <div>
+    <h3>Tareas Pendientes:</h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tarea</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Status</th> <!-- Nueva columna de Status -->
+        <th scope="col">Acciones</th>
+      </tr>
+      </thead>
+      <tbody id="tablaTareas">
+      <!-- Aquí se generará la tabla de tareas mediante el servidor -->
+      <!-- Ejemplo de tarea en tabla: -->
+      <tr>
+        <th scope="row">1</th>
+        <td>Tarea 1</td>
+        <td>Descripción de la tarea</td>
+        <td>Pendiente</td> <!-- Ejemplo de estatus -->
+        <td>
+          <button class="btn btn-danger btn-sm">Eliminar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Botones para las funcionalidades -->
+  <div class="d-flex justify-content-between mb-4">
+    <button id="btnEliminarTareas" class="btn btn-warning">Eliminar Tareas Específicas</button>
+    <button id="btnLimpiarLista" class="btn btn-danger">Auto-Destrucción (Limpiar Lista)</button>
+    <button id="btnImprimirLista" class="btn btn-success">Imprimir Lista</button>
+    <button id="btnDescargarTxt" class="btn btn-info">Descargar como TXT</button>
+  </div>
+  <!-- Información sobre el número de tareas pendientes -->
+  <div id="infoTareasPendientes">
+    <p>Tareas Pendientes: <span id="numeroTareas">0</span></p>
+  </div>
+</div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Aquí vendrían las funciones para interactuar con el servidor (Java Servlet)
+</script>
+</body>
+</html>
