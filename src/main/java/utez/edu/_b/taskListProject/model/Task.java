@@ -1,4 +1,4 @@
-package utez.edu._b.taskListProject;
+package utez.edu._b.taskListProject.model;
 
 import java.sql.Date;
 

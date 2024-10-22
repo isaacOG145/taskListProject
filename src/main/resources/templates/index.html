@@ -4,10 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
 </head>
 <body>
-    
-    <script src="/js/bootstrap.bundle.min.js"></script>
+<header class="bg-primary text-white text-center py-3">
+    <h1>Lista de tareas</h1>
+</header>
+
+<div class="container mt-5 border p-4">
+
+    <!-- Barra de búsqueda -->
+    <div class="mb-3 d-flex">
+        <input type="text" id="searchInput" class="form-control me-2" placeholder="Buscar tarea pendiente">
+        <button id="searchButton" class="btn btn-secondary">Buscar</button> <!-- Cambiado a un color secundario -->
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Fecha de Inicio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Cambiar estado</th>
+            <th scope="col">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task, iterStat : ${tasks}">
+            <td th:text="${task.taskName}"></td>
+            <td th:text="${task.taskDescription}"></td>
+            <td th:text="${#dates.format(task.taskStartDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${task.taskStatus ? 'Completada' : 'Pendiente'}"></td>
+            <td>
+                <!-- botón para cambiar estado -->
+                <button id="btnCambiarStatus" class="btn btn-warning">Cambiar</button>
+            </td>
+            <td>
+                <!-- botón de eliminar -->
+                <button id="btnEliminarTareas" class="btn btn-danger">Eliminar tarea</button> <!-- Cambiado a un color de peligro -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botones para las funcionalidades -->
+    <div class="d-flex justify-content-between mb-4">
+        <button id="btnCambio" class="btn btn-primary">Agregar tarea</button>
+        <button id="btnLimpiarLista" class="btn btn-danger">Limpiar Lista</button>
+        <button id="btnContarPendientes" class="btn btn-info">Número de tareas pendientes</button>
+        <button id="btnImprimirLista" class="btn btn-success">Imprimir Lista</button>
+        <button id="btnDescargarTxt" class="btn btn-primary">Descargar como TXT</button>
+    </div>
+</div>
+
+
+
+    <script src="../static/js/bootstrap.js"></script>
+
 </body>
 </html>

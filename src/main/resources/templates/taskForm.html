@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+</head>
+<body>
+
+      <header class="bg-primary text-white text-center py-3">
+        <h1>Lista de tareas</h1>
+      </header>
+
+
+      <div class="container mt-5 border p-4">
+        <h2>Añadir Nueva Tarea</h2>
+        <form action="#" th:action="@{/tasks/add}" th:object="${task}" method="post" class="mt-4">
+          <div class="mb-3">
+            <label for="taskName" class="form-label">Nombre de la Tarea:</label>
+            <input type="text" id="taskName" class="form-control" th:field="*{taskName}" placeholder="Nombre de la tarea" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="taskDescription" class="form-label">Descripción:</label>
+            <textarea id="taskDescription" class="form-control" th:field="*{taskDescription}" placeholder="Descripción de la tarea" rows="3" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="taskStartDate" class="form-label">Fecha de Inicio:</label>
+            <input type="date" id="taskStartDate" class="form-control" th:field="*{taskStartDate}" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Añadir Tarea</button>
+        </form>
+      </div>
+      <script src="../static/js/bootstrap.js"></script>
+</body>
+</html>
