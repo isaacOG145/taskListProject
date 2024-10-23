@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Task {
 
+    private Long id;
     private String taskName;
     private String taskDescription;
     private Date taskStartDate;
@@ -11,12 +12,15 @@ public class Task {
 
     public Task(){}
 
-    public Task(String taskName, String taskDescription, Date taskStartDate, boolean taskStatus) {
+    public Task(Long id,String taskName, String taskDescription, Date taskStartDate, boolean taskStatus) {
+        this.id = id;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStartDate = taskStartDate;
         this.taskStatus = taskStatus;
     }
+
+    public Long getId() {return id;}
 
     public String getTaskName() {
         return taskName;
@@ -33,6 +37,8 @@ public class Task {
     public boolean getTaskStatus() {
         return taskStatus;
     }
+
+    public void setId(Long id) {this.id = id;}
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;

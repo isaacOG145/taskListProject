@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 <header class="bg-primary text-white text-center py-3">
@@ -12,11 +13,12 @@
 </header>
 
 <div class="container mt-5 border p-4">
-
     <!-- Barra de búsqueda -->
     <div class="mb-3 d-flex">
-        <input type="text" id="searchInput" class="form-control me-2" placeholder="Buscar tarea pendiente">
-        <button id="searchButton" class="btn btn-secondary">Buscar</button> <!-- Cambiado a un color secundario -->
+        <form action="/searchTask" method="post" class="d-flex" style="max-width: 500px; margin: 0 auto;">
+            <input type="text" name="taskName" placeholder="Buscar tarea" required class="form-control me-2" style="border-radius: 25px;" />
+            <button type="submit" class="btn btn-primary" style="border-radius: 25px;">Buscar</button>
+        </form>
     </div>
 
     <table class="table table-striped">
@@ -31,36 +33,60 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="task, iterStat : ${tasks}">
+        <tr th:each="task : ${tasks}">
             <td th:text="${task.taskName}"></td>
             <td th:text="${task.taskDescription}"></td>
             <td th:text="${#dates.format(task.taskStartDate, 'yyyy-MM-dd')}"></td>
             <td th:text="${task.taskStatus ? 'Completada' : 'Pendiente'}"></td>
             <td>
-                <!-- botón para cambiar estado -->
-                <button id="btnCambiarStatus" class="btn btn-warning">Cambiar</button>
+                <form action="/changeStatus" method="post">
+                    <input type="hidden" name="taskName" th:value="${task.taskName}" />
+                    <button class="btn btn-warning" type="submit">Cambiar</button>
+                </form>
             </td>
             <td>
-                <!-- botón de eliminar -->
-                <button id="btnEliminarTareas" class="btn btn-danger">Eliminar tarea</button> <!-- Cambiado a un color de peligro -->
+                <form action="/deleteTask" method="post">
+                    <input type="hidden" name="taskName" th:value="${task.taskName}" />
+                    <button class="btn btn-danger" type="submit">Eliminar tarea</button>
+                </form>
             </td>
         </tr>
         </tbody>
     </table>
 
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <p th:text="${successMessage}"></p>
+    </div>
+
     <!-- Botones para las funcionalidades -->
     <div class="d-flex justify-content-between mb-4">
-        <button id="btnCambio" class="btn btn-primary">Agregar tarea</button>
-        <button id="btnLimpiarLista" class="btn btn-danger">Limpiar Lista</button>
-        <button id="btnContarPendientes" class="btn btn-info">Número de tareas pendientes</button>
-        <button id="btnImprimirLista" class="btn btn-success">Imprimir Lista</button>
-        <button id="btnDescargarTxt" class="btn btn-primary">Descargar como TXT</button>
+        <a href="/tasks/add" class="btn btn-primary">Agregar tarea</a>
+        <form action="/clearList" method="post">
+            <button class="btn btn-danger" type="submit">Limpiar Lista</button>
+        </form>
+        <form action="/searchPendingTasks" method="post">
+            <button class="btn btn-warning" type="submit">Buscar Pendientes</button>
+        </form>
+        <form action="/countPendingTasks" method="get">
+            <button class="btn btn-info" type="submit">Contar Tareas Pendientes</button>
+        </form>
+        <form action="/" method="get">
+            <button class="btn btn-success" type="submit">Imprimir Lista</button>
+        </form>
+        <form action="/download" method="get">
+            <button class="btn btn-primary" type="submit">Descargar como TXT</button>
+        </form>
     </div>
+
+    <div class="alert alert-info" th:if="${pendingCount != null}">
+        Número de tareas pendientes: <span th:text="${pendingCount}"></span>
+    </div>
+
 </div>
 
-
-
-    <script src="../static/js/bootstrap.js"></script>
-
+<script src="../static/js/bootstrap.js"></script>
 </body>
 </html>
